@@ -1,0 +1,23 @@
+/* Colors */
+:root {
+    --primary-color: #333; /* Header and section backgrounds */
+    --text-color: #fff; /* Text color on dark backgrounds */
+    --background-color: #f4f4f4; /* Page background color */
+    --accent-color: #888; /* Accent text color */
+}
+
+/* Fonts */
+:root {
+    --font-family: Arial, sans-serif; /* Default font family */
+}
+
+/* Spacing */
+:root {
+    --section-padding: 40px; /* Padding for sections */
+    --section-margin: 20px; /* Margin between sections */
+}
+
+/* Responsive Breakpoints */
+:root {
+    --max-screen-width: 768px; /* Max screen width for responsive design */
+}
