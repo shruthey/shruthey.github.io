@@ -1,0 +1,86 @@
+.home-container {
+  height: 100vh;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: linear-gradient(to bottom, #000000, #950000);
+  border-image-slice: 1;
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(0deg, orange, pink);
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 300;
+  padding: 20px 25px 300px 25px;
+  background: linear-gradient(to top, pink, orange);
+
+  .icon-container {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+    color: rgb(171, 0, 0);
+    font-weight: 600;
+    font-family: monospace;
+
+    .icon {
+      font-size: 100px;
+      text-shadow: 5px 5px 0px black;
+    }
+  }
+
+  .nav-bar {
+    font-size: 20px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+    margin: 0px;
+
+    li {
+      padding: 50px 0px 0px 0px;
+      border-bottom: 5px solid;
+      color: rgb(136, 0, 0);
+
+      .list-item {
+        text-decoration: none;
+        color: rgb(136, 0, 0);
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    justify-content: flex-start;
+
+    .link {
+      padding: 15px;
+      height: 20px;
+      color: rgb(136, 0, 0);
+    }
+  }
+}
+
+.name-container {
+  color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 100px 300px 200px 100px;
+  font-stretch: ultra-expanded;
+
+  .name {
+    font-size: 100px;
+    font-weight: lighter;
+    background: linear-gradient(to right, #860000, #e50000);
+    -webkit-background-clip: text;
+  }
+
+  .tagline {
+    font-size: medium;
+    color: #000;
+    -webkit-background-clip: text;
+  }
+}
