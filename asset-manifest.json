@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/shruthey.github.io/static/css/main.fa7318d6.css",
+    "main.js": "/shruthey.github.io/static/js/main.432c1ce3.js",
+    "static/js/453.99578694.chunk.js": "/shruthey.github.io/static/js/453.99578694.chunk.js",
+    "index.html": "/shruthey.github.io/index.html",
+    "main.fa7318d6.css.map": "/shruthey.github.io/static/css/main.fa7318d6.css.map",
+    "main.432c1ce3.js.map": "/shruthey.github.io/static/js/main.432c1ce3.js.map",
+    "453.99578694.chunk.js.map": "/shruthey.github.io/static/js/453.99578694.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fa7318d6.css",
+    "static/js/main.432c1ce3.js"
+  ]
+}
