@@ -1,0 +1,40 @@
+.time-container {
+  display: flex;
+  flex-basis: max-content;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+
+  .time-item-container {
+    margin: 50px;
+    display: flex;
+    flex-direction: row;
+    color: var(--accent3);
+    text-align: center;
+    align-items: center;
+    margin: 50px 50px 200px 50px;
+    padding-inline-start: 20px;
+
+    .time-item {
+      color: var(--accent1);
+      font-stretch: ultra-expanded;
+    }
+
+    .time-item-icon {
+      height: 60px;
+      color: var(--accent2);
+    }
+  }
+
+  .t0 {
+    margin-top: -100px !important;
+  }
+
+  .t1 {
+    margin-top: 250px !important;
+  }
+
+  .t2 {
+    margin-top: -300px !important;
+  }
+}
