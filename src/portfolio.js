@@ -10,13 +10,13 @@ import splashAnimation from "./assets/lottie/splashAnimation"; // Rename to your
 const splashScreen = {
   enabled: true, // set false to disable splash screen
   animation: splashAnimation,
-  duration: 2000 // Set animation duration as per your animation
+  duration: 2000, // Set animation duration as per your animation
 };
 
 // Summary And Greeting Section
 
 const illustration = {
-  animated: true // Set to false to use static SVG
+  animated: true, // Set to false to use static SVG
 };
 
 const greeting = {
@@ -27,7 +27,7 @@ const greeting = {
   ),
   resumeLink:
     "https://drive.google.com/file/d/1ofFdKF_mqscH8WvXkSObnVvC9kK7Ldlu/view?usp=sharing", // Set to empty to hide the button
-  displayGreeting: true
+  displayGreeting: true,
 };
 
 // Social Media Links
@@ -37,7 +37,7 @@ const socialMediaLinks = {
   linkedin: "https://www.linkedin.com/in/shruthey/",
   gmail: "shruthey98@gmail.com",
   stackoverflow: "https://stackoverflow.com/users/10336750/shrth",
-  display: true
+  display: true,
 };
 
 // Skills Section
@@ -55,59 +55,59 @@ const skillsSection = {
     ),
     emoji(
       "⚡ Writing unit and integration tests to ensure high code quality and reliability."
-    )
+    ),
   ],
   softwareSkills: [
     {
       skillName: "React.js",
-      fontAwesomeClassname: "fab fa-react"
+      fontAwesomeClassname: "fab fa-react",
     },
     {
       skillName: "Vue.js",
-      fontAwesomeClassname: "fab fa-vuejs"
+      fontAwesomeClassname: "fab fa-vuejs",
     },
     {
       skillName: "Node.js",
-      fontAwesomeClassname: "fab fa-node"
+      fontAwesomeClassname: "fab fa-node",
     },
     {
       skillName: "C#",
-      fontAwesomeClassname: "fas fa-hashtag"
+      fontAwesomeClassname: "fas fa-hashtag",
     },
     {
       skillName: ".NET Framework",
-      fontAwesomeClassname: "fas fa-code"
+      fontAwesomeClassname: "fas fa-code",
     },
     {
       skillName: "SQL Databases",
-      fontAwesomeClassname: "fas fa-database"
+      fontAwesomeClassname: "fas fa-database",
     },
     {
       skillName: "JavaScript",
-      fontAwesomeClassname: "fab fa-js"
+      fontAwesomeClassname: "fab fa-js",
     },
     {
       skillName: "HTML5",
-      fontAwesomeClassname: "fab fa-html5"
+      fontAwesomeClassname: "fab fa-html5",
     },
     {
       skillName: "CSS3",
-      fontAwesomeClassname: "fab fa-css3-alt"
+      fontAwesomeClassname: "fab fa-css3-alt",
     },
     {
       skillName: "Sass",
-      fontAwesomeClassname: "fab fa-sass"
+      fontAwesomeClassname: "fab fa-sass",
     },
     {
       skillName: "Python",
-      fontAwesomeClassname: "fab fa-python"
+      fontAwesomeClassname: "fab fa-python",
     },
     {
       skillName: "NPM",
-      fontAwesomeClassname: "fab fa-npm"
-    }
+      fontAwesomeClassname: "fab fa-npm",
+    },
   ],
-  display: true
+  display: true,
 };
 
 // Education Section
@@ -120,16 +120,16 @@ const educationInfo = {
       logo: require("./assets/images/utdLogo.jpeg"),
       subHeader: "Master of Science in Business Analytics",
       duration: "August 2022 - May 2024",
-      desc: "Course Work includes - Database Design, Natural Language Processing, Deep Learning, Design and Analysis of Algorithms"
+      desc: "Course Work includes - Database Design, Natural Language Processing, Deep Learning, Design and Analysis of Algorithms",
     },
     {
       schoolName: "Christ University",
       logo: require("./assets/images/christLogo.webp"),
       subHeader: "Bachelor of Technology in Computer Science",
       duration: "August 2016 - May 2020",
-      desc: "Course Work includes - Data Structures, Algorithms, Operating Systems, Database Management Systems, Software Engineering"
-    }
-  ]
+      desc: "Course Work includes - Data Structures, Algorithms, Operating Systems, Database Management Systems, Software Engineering",
+    },
+  ],
 };
 
 const techStack = {
@@ -137,18 +137,18 @@ const techStack = {
   experience: [
     {
       Stack: "Frontend/Design",
-      progressPercentage: "90%"
+      progressPercentage: "90%",
     },
     {
       Stack: "Backend",
-      progressPercentage: "70%"
+      progressPercentage: "70%",
     },
     {
       Stack: "Programming",
-      progressPercentage: "60%"
-    }
+      progressPercentage: "60%",
+    },
   ],
-  displayCodersrank: false // Set true to display codersrank badges section need to changes your username in src/containers/skillProgress/skillProgress.js:17:62, defaults to false
+  displayCodersrank: false, // Set true to display codersrank badges section need to changes your username in src/containers/skillProgress/skillProgress.js:17:62, defaults to false
 };
 
 // Work experience section
@@ -161,32 +161,21 @@ const workExperiences = {
       company: "MyDirectives",
       companylogo: require("./assets/images/myd-logo.png"),
       date: "May 2024 – Present",
-      desc: "Designing and implementing features and functionality for an Advance Care Planning website.",
-      descBullets: [
-        "Developed reusable UI components using Vue.js to improve page load time by 30%, by implementing a modular component library.",
-        "Developing REST APIs using C# and .NET, leveraging Entity Framework Core for database interactions, to ensure efficient data retrieval and manipulation.",
-        "Optimized API calls by implementing caching, resulting in a 25% improvement in response times."
-      ]
+      desc: "Developing features and functionality for an Advance Care Planning website.",
     },
     {
       role: "Software Engineer",
       company: "Oracle Cerner",
       companylogo: require("./assets/images/oracle-cerner-logo.png"),
       date: "Dec 2019 – Aug 2022",
-      desc: "Contributed to the development of an EHR tool that enables doctors, nurses, and other clinicians to efficiently manage patient lab tests and results.",
-      descBullets: [
-        "Enhanced user workflows by creating reusable components in React, improving task completion times for healthcare professionals.",
-        "Collaborated with UX solution designers to ensure the interface met the needs of other end-users.",
-        "Integrated third-party APIs using axios and Fetch API to fetch real-time lab test data, ensuring up-to-date information for clinical decisions.",
-        "Implemented unit and integration tests using NUnit and SonarQube, increasing code coverage to 95%."
-      ]
-    }
-  ]
+      desc: "Developed an EHR tool that enables doctors, nurses, and other clinicians to efficiently manage patient lab tests and results.",
+    },
+  ],
 };
 
 const openSource = {
   showGithubProfile: "true",
-  display: false
+  display: false,
 };
 
 const bigProjects = {
@@ -200,9 +189,9 @@ const bigProjects = {
       footerLink: [
         {
           name: "Code",
-          url: "https://github.com/shruthey/MyPokeDex/"
-        }
-      ]
+          url: "https://github.com/shruthey/MyPokeDex/",
+        },
+      ],
     },
     {
       projectName: "Guard AI",
@@ -211,19 +200,19 @@ const bigProjects = {
       footerLink: [
         {
           name: "Code",
-          url: "https://github.com/shruthey/Guard-AI"
-        }
-      ]
-    }
+          url: "https://github.com/shruthey/Guard-AI",
+        },
+      ],
+    },
   ],
-  display: true
+  display: true,
 };
 
 // Resume Section
 const resumeSection = {
   title: "Resume",
   subtitle: "Feel free to download my resume",
-  display: true
+  display: true,
 };
 
 const contactInfo = {
@@ -231,14 +220,14 @@ const contactInfo = {
   subtitle:
     "Discuss a project or just want to say hi? My Inbox is open for all.",
   number: "+1 469-686-0968",
-  email_address: "shruthey98@gmail.com"
+  email_address: "shruthey98@gmail.com",
 };
 
 // Twitter Section
 
 const twitterDetails = {
   userName: "shruthey",
-  display: true
+  display: true,
 };
 
 const isHireable = true;
@@ -257,5 +246,5 @@ export {
   contactInfo,
   twitterDetails,
   isHireable,
-  resumeSection
+  resumeSection,
 };
