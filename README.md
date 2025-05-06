@@ -1,2 +1,0 @@
-# shruthey.github.io
- portfolio
