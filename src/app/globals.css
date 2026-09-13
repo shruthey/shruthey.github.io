@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/*
+  Bold & graphic palette. Every pair below is contrast-checked against the
+  surface it is used on (see README) — ink/surface is 16.1:1, and the accents
+  are only ever used as backgrounds behind --color-ink, never as text on paper.
+*/
+@theme {
+  --color-paper: #faf7f2;
+  --color-surface: #ffffff;
+  --color-ink: #12100e;
+  --color-muted: #55504a;
+
+  /*
+    --accent is a display/decorative color: 3.09:1 on paper, so it is only for
+    large type, underline decorations, and non-text marks. For small text on a
+    light ground use --accent-text (5.06:1 on paper, passes AA).
+  */
+  --color-accent: #ff4d2e;
+  --color-accent-text: #c2280c;
+  --color-electric: #2f5cff;
+  --color-lime: #d8f651;
+  --color-violet: #b57bff;
+
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible focus that survives the design. */
+  :focus-visible {
+    outline: 3px solid var(--color-electric);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /*
+    Scroll reveal. Content is VISIBLE by default and only hidden once JS
+    confirms IntersectionObserver support (see components/Reveal.tsx), so a
+    JS failure can never leave the page blank.
+  */
+  .reveal-armed {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/*
+  Kill motion for users who ask for it. Pairs with useReducedMotion() on the
+  JS side — CSS alone cannot stop script-driven animation.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-armed {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
