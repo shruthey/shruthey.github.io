@@ -55,16 +55,19 @@ in `portfolio.ts`, value = the exact Simple Icons title), or to `custom` if
 Simple Icons doesn't carry the mark — as with Java and AWS, which were removed
 for trademark reasons, and concepts like RAG that aren't products.
 
-## Updating the resume
+## Regenerating the favicon
 
-`/resume` is a **real HTML page**, not a PDF — there's no file to swap and
-nothing to regenerate. It renders from the same `src/content/portfolio.ts`
-data as the home page, so editing `experiences`, `schools`, or `skillGroups`
-updates both at once.
+The tab icon is a bold "SP" monogram on the site's lime, generated rather than
+hand-drawn so every size stays consistent:
 
-That also means the resume is indexable by search engines, readable on a phone,
-and accessible to screen readers — none of which is true of a PDF in an
-`<iframe>` (which iOS Safari renders unreliably anyway).
+```bash
+npm install --no-save sharp
+node scripts/gen-favicon.mjs
+```
+
+Writes `src/app/icon.png`, `src/app/apple-icon.png`, `public/icon-192.png`,
+`public/icon-512.png`, and `public/favicon.ico`. Keep the letterforms heavy —
+at 16px in a browser tab, thin strokes disappear entirely.
 
 ## Environment variables
 

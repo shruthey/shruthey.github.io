@@ -9,9 +9,9 @@ const ROLES = [
   "a Forward Deployed AI Engineer",
 ];
 
-const TYPE_MS = 65;
-const DELETE_MS = 32;
-const HOLD_MS = 1800;
+const TYPE_MS = 38;
+const DELETE_MS = 18;
+const HOLD_MS = 950;
 
 /**
  * Types each role in, holds, deletes, moves to the next.
@@ -27,12 +27,9 @@ export function RotatingRole() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setAnimate(true);
-  }, []);
 
-  useEffect(() => {
-    if (!animate) return;
-
+    // Flip the cursor on from inside the scheduling effect rather than a
+    // separate one, so this doesn't cascade an extra render pass.
     let roleIndex = 0;
     let charIndex = ROLES[0].length;
     let deleting = false;
@@ -62,12 +59,16 @@ export function RotatingRole() {
       }
     };
 
-    timer.current = setTimeout(step, HOLD_MS);
+    timer.current = setTimeout(() => {
+      setAnimate(true);
+      step();
+    }, HOLD_MS);
+
     return () => {
       cancelled = true;
       clearTimeout(timer.current);
     };
-  }, [animate]);
+  }, []);
 
   return (
     <>
