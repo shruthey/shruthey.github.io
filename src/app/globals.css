@@ -11,6 +11,10 @@
   --color-ink: #12100e;
   --color-muted: #55504a;
 
+  /* Dark sidebar shell. Warm near-black rather than the reference's navy. */
+  --color-shell: #16130f;
+  --color-shell-ink: #f6f2ea; /* on shell: 15.9:1 */
+
   /*
     --accent is a display/decorative color: 3.09:1 on paper, so it is only for
     large type, underline decorations, and non-text marks. For small text on a

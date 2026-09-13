@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  site,
   contactInfo,
   experiences,
   greeting,
   projects,
   schools,
+  skillGroups,
   skillsSection,
   socialLinks,
 } from "@/content/portfolio";
@@ -17,10 +19,13 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b-2 border-ink bg-lime">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+      <section
+        id="top"
+        className="scroll-mt-16 border-b-2 border-ink bg-lime lg:min-h-[88vh] lg:flex lg:items-center"
+      >
+        <div className="mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em]">
-            Full Stack Software Developer
+            {site.role} · 5+ years
           </p>
           <h1 className="font-display text-5xl leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
             {greeting.title}
@@ -48,8 +53,8 @@ export default function Home() {
       </section>
 
       {/* What I do */}
-      <section className="border-b-2 border-ink">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      <section id="about" className="scroll-mt-16 border-b-2 border-ink">
+        <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
               {skillsSection.title}
@@ -75,52 +80,82 @@ export default function Home() {
             ))}
           </ul>
 
-          <Reveal>
-            <ul className="mt-12 flex flex-wrap gap-3">
-              {skillsSection.softwareSkills.map((skill) => (
-                <li
-                  key={skill.name}
-                  className="flex items-center gap-2 rounded-full border-2 border-ink bg-surface px-4 py-2 text-sm font-semibold"
-                >
-                  <SkillIcon icon={skill.icon} className="h-4 w-4" />
-                  {skill.name}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <div className="mt-14 space-y-8">
+            {skillGroups.map((group, i) => (
+              <Reveal key={group.label} delay={i * 60}>
+                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
+                  {group.label}
+                </h3>
+                <ul className="mt-3 flex flex-wrap gap-2.5">
+                  {group.skills.map((skill) => (
+                    <li
+                      key={skill.name}
+                      className="flex items-center gap-2 rounded-full border-2 border-ink bg-surface px-4 py-2 text-sm font-semibold"
+                    >
+                      <SkillIcon icon={skill.icon} className="h-4 w-4" />
+                      {skill.name}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Experience */}
       <section id="work" className="scroll-mt-16 border-b-2 border-ink bg-violet">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
               Experience
             </h2>
           </Reveal>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="mt-10 space-y-6">
             {experiences.map((job, i) => (
               <Reveal key={job.company} delay={i * 100}>
-                <article className="h-full rounded-xl border-2 border-ink bg-surface p-6">
-                  <div className="flex items-start gap-4">
-                    <Image
-                      src={job.logo}
-                      alt={`${job.company} logo`}
-                      width={56}
-                      height={56}
-                      className="h-14 w-14 shrink-0 rounded-lg border-2 border-ink bg-white object-contain p-1.5"
-                    />
-                    <div>
-                      <h3 className="font-display text-xl leading-tight">
-                        {job.role}
-                      </h3>
-                      <p className="font-semibold">{job.company}</p>
-                      <p className="mt-0.5 text-sm text-muted">{job.date}</p>
+                <article className="rounded-xl border-2 border-ink bg-surface p-6 sm:p-8">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      <Image
+                        src={job.logo}
+                        alt={`${job.company} logo`}
+                        width={56}
+                        height={56}
+                        className="h-14 w-14 shrink-0 rounded-lg border-2 border-ink bg-white object-contain p-1.5"
+                      />
+                      <div>
+                        <h3 className="font-display text-xl leading-tight">
+                          {job.role}
+                        </h3>
+                        <p className="font-semibold">{job.company}</p>
+                      </div>
                     </div>
+                    <p className="font-mono text-sm text-muted">{job.date}</p>
                   </div>
-                  <p className="mt-4 leading-relaxed">{job.desc}</p>
+
+                  <p className="mt-5 text-lg leading-relaxed">{job.desc}</p>
+
+                  <ul className="mt-5 space-y-2.5">
+                    {job.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-3 leading-relaxed">
+                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <ul className="mt-6 flex flex-wrap gap-2 border-t-2 border-ink/10 pt-5">
+                    {job.stack.map((tech) => (
+                      <li
+                        key={tech}
+                        className="rounded-full bg-ink px-3 py-1 text-xs font-semibold text-paper"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
                 </article>
               </Reveal>
             ))}
@@ -130,13 +165,14 @@ export default function Home() {
 
       {/* Projects */}
       <section id="projects" className="scroll-mt-16 border-b-2 border-ink">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
               Projects
             </h2>
             <p className="mt-4 max-w-2xl text-lg text-muted">
-              A couple of things I&rsquo;ve built end to end.
+              Things I&rsquo;ve built end to end — from real-time collaboration
+              infrastructure to applied ML.
             </p>
           </Reveal>
 
@@ -148,7 +184,7 @@ export default function Home() {
                   <p className="mt-2 text-lg">{project.tagline}</p>
 
                   <ul className="mt-4 flex flex-wrap gap-2">
-                    {project.stack.map((tech) => (
+                    {project.stack.slice(0, 5).map((tech) => (
                       <li
                         key={tech}
                         className="rounded-full bg-ink px-3 py-1 text-xs font-semibold text-paper"
@@ -156,11 +192,16 @@ export default function Home() {
                         {tech}
                       </li>
                     ))}
+                    {project.stack.length > 5 && (
+                      <li className="rounded-full border-2 border-ink px-3 py-1 text-xs font-semibold">
+                        +{project.stack.length - 5}
+                      </li>
+                    )}
                   </ul>
 
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="mt-6 font-display underline decoration-accent decoration-4 underline-offset-4 group-hover:text-accent"
+                    className="mt-auto pt-6 font-display underline decoration-accent decoration-4 underline-offset-4 group-hover:text-accent-text"
                   >
                     Read the case study →
                   </Link>
@@ -173,7 +214,7 @@ export default function Home() {
 
       {/* Education */}
       <section className="border-b-2 border-ink bg-electric text-paper">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
               Education
@@ -212,7 +253,7 @@ export default function Home() {
 
       {/* Contact */}
       <section id="contact" className="scroll-mt-16">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-2">
             <Reveal>
               <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
@@ -232,19 +273,6 @@ export default function Home() {
                       className="text-lg underline decoration-accent decoration-2 underline-offset-4"
                     >
                       {contactInfo.email}
-                    </a>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-semibold uppercase tracking-wide text-muted">
-                    Phone
-                  </dt>
-                  <dd>
-                    <a
-                      href={`tel:${contactInfo.number.replace(/[^+\d]/g, "")}`}
-                      className="text-lg underline decoration-accent decoration-2 underline-offset-4"
-                    >
-                      {contactInfo.number}
                     </a>
                   </dd>
                 </div>

@@ -27,7 +27,7 @@ nothing to commit to a separate branch.
 Experience, education, projects, skills, and contact details are typed objects
 there — edit that one file rather than hunting through components.
 
-Adding a third project takes three steps:
+Adding another project takes two steps:
 
 1. Add an entry to `projects` in `src/content/portfolio.ts` (add its slug to
    `ProjectSlug` in `types.ts`).
@@ -39,6 +39,22 @@ Adding a third project takes three steps:
 Literal route directories are used instead of a `[slug]` dynamic route so the
 per-page link-preview images generate reliably under static export.
 
+## Adding a skill icon
+
+Skill glyphs are inline SVG, generated from the `simple-icons` package and
+committed to `src/components/SkillIcon.tsx` — the package itself is not a
+dependency, so the build doesn't pull it.
+
+```bash
+npm install --no-save simple-icons
+node scripts/gen-icons.mjs
+```
+
+Add the icon to the `want` map in that script (key = the `icon` value you use
+in `portfolio.ts`, value = the exact Simple Icons title), or to `custom` if
+Simple Icons doesn't carry the mark — as with Java and AWS, which were removed
+for trademark reasons, and concepts like RAG that aren't products.
+
 ## Replacing the resume — two steps
 
 The `/resume` page shows an **image** of the PDF rather than embedding it,
@@ -47,7 +63,7 @@ resume changes:
 
 ```bash
 # 1. Replace the PDF
-cp ~/path/to/new-resume.pdf public/shruthi-srinivas-resume.pdf
+cp ~/path/to/new-resume.pdf public/shruthi-srinivasa-prasad-resume.pdf
 
 # 2. Regenerate the preview image (macOS only — uses qlmanage)
 npm run resume

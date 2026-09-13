@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Archivo_Black } from "next/font/google";
 import { site, socialLinks } from "@/content/portfolio";
-import { SiteHeader } from "@/components/SiteHeader";
+import { Sidebar } from "@/components/Sidebar";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
@@ -76,9 +76,11 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main">{children}</main>
-        <SiteFooter />
+        <Sidebar />
+        <div className="lg:pl-72">
+          <main id="main">{children}</main>
+          <SiteFooter />
+        </div>
         <Analytics />
         <script
           type="application/ld+json"

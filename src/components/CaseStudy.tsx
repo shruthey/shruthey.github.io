@@ -35,19 +35,21 @@ export function CaseStudy({ project }: { project: Project }) {
             ))}
           </ul>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            {project.links.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-lg border-2 border-ink bg-ink px-5 py-2.5 font-display text-paper transition-transform hover:-translate-y-0.5"
-              >
-                {link.label} ↗
-              </a>
-            ))}
-          </div>
+          {project.links.length > 0 && (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {project.links.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-lg border-2 border-ink bg-ink px-5 py-2.5 font-display text-paper transition-transform hover:-translate-y-0.5"
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </header>
 

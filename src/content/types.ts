@@ -1,3 +1,14 @@
+export interface Skill {
+  name: string;
+  /** Key into the inline SVG set in components/SkillIcon.tsx. */
+  icon: string;
+}
+
+export interface SkillGroup {
+  label: string;
+  skills: Skill[];
+}
+
 export interface SocialLink {
   label: string;
   href: string;
@@ -9,7 +20,11 @@ export interface Experience {
   company: string;
   logo: string;
   date: string;
+  /** One-line summary shown on the card. */
   desc: string;
+  /** Detailed accomplishments, shown expanded on the resume page. */
+  bullets: string[];
+  stack: string[];
 }
 
 export interface School {
@@ -20,13 +35,17 @@ export interface School {
   desc: string;
 }
 
-export type ProjectSlug = "pokedex" | "guard-ai";
+export type ProjectSlug =
+  | "document-sync"
+  | "email-router"
+  | "guard-ai"
+  | "pokedex";
 
 export interface Project {
   slug: ProjectSlug;
   name: string;
   tagline: string;
-  /** Original portfolio copy, preserved verbatim. */
+  /** Longer-form description of the project as a whole. */
   summary: string;
   problem: string;
   approach: string[];

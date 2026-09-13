@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { contactInfo, experiences, greeting, schools, skillsSection } from "@/content/portfolio";
+import {
+  contactInfo,
+  experiences,
+  greeting,
+  schools,
+  skillGroups,
+} from "@/content/portfolio";
 
 export const metadata: Metadata = {
   title: "Resume",
-  description: `Resume for ${greeting.name}, Full Stack Software Developer.`,
+  description: `Resume for ${greeting.name}, Software Engineer.`,
   alternates: { canonical: "/resume" },
   openGraph: {
     title: "Resume",
-    description: `Resume for ${greeting.name}, Full Stack Software Developer.`,
+    description: `Resume for ${greeting.name}, Software Engineer.`,
     url: "/resume",
   },
 };
@@ -59,9 +65,7 @@ export default function ResumePage() {
         />
 
         <section className="mt-16 border-t-2 border-ink pt-12">
-          <h2 className="font-display text-3xl tracking-tight">
-            Summary
-          </h2>
+          <h2 className="font-display text-3xl tracking-tight">Summary</h2>
           <p className="mt-4 text-lg leading-relaxed text-muted">
             {greeting.subTitle}
           </p>
@@ -69,14 +73,28 @@ export default function ResumePage() {
           <h2 className="mt-12 font-display text-3xl tracking-tight">
             Experience
           </h2>
-          <ul className="mt-6 space-y-6">
+          <ul className="mt-6 space-y-8">
             {experiences.map((job) => (
               <li key={job.company}>
                 <h3 className="font-display text-xl">
                   {job.role}, {job.company}
                 </h3>
                 <p className="text-sm text-muted">{job.date}</p>
-                <p className="mt-2 leading-relaxed">{job.desc}</p>
+                <ul className="mt-3 space-y-2">
+                  {job.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3 leading-relaxed">
+                      <span
+                        aria-hidden="true"
+                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                      />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 text-sm text-muted">
+                  <span className="font-semibold">Technologies:</span>{" "}
+                  {job.stack.join(", ")}
+                </p>
               </li>
             ))}
           </ul>
@@ -96,9 +114,16 @@ export default function ResumePage() {
           </ul>
 
           <h2 className="mt-12 font-display text-3xl tracking-tight">Skills</h2>
-          <p className="mt-4 leading-relaxed">
-            {skillsSection.softwareSkills.map((s) => s.name).join(" · ")}
-          </p>
+          <dl className="mt-6 space-y-3">
+            {skillGroups.map((group) => (
+              <div key={group.label}>
+                <dt className="font-semibold">{group.label}</dt>
+                <dd className="text-muted">
+                  {group.skills.map((s) => s.name).join(", ")}
+                </dd>
+              </div>
+            ))}
+          </dl>
 
           <h2 className="mt-12 font-display text-3xl tracking-tight">Contact</h2>
           <p className="mt-4">
@@ -107,13 +132,6 @@ export default function ResumePage() {
               className="underline decoration-accent decoration-2 underline-offset-4"
             >
               {contactInfo.email}
-            </a>
-            {" · "}
-            <a
-              href={`tel:${contactInfo.number.replace(/[^+\d]/g, "")}`}
-              className="underline decoration-accent decoration-2 underline-offset-4"
-            >
-              {contactInfo.number}
             </a>
           </p>
         </section>
