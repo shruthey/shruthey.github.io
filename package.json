@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/fix-og-extensions.mjs",
-    "lint": "eslint",
-    "resume": "node scripts/build-resume-preview.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "next": "16.3.5",

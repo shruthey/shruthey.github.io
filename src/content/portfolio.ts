@@ -13,7 +13,6 @@ export const greeting = {
   title: "Hi, I'm Shruthi",
   subTitle:
     "Software engineer with 5+ years building web applications end to end — from Vue and React front ends to C#/.NET and Python services, on AWS. Most recently in regulated healthcare, where correctness, accessibility and auditability are requirements rather than nice-to-haves.",
-  resumeHref: "/shruthi-srinivasa-prasad-resume.pdf",
 } as const;
 
 export const socialLinks: SocialLink[] = [

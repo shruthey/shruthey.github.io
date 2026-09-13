@@ -55,26 +55,16 @@ in `portfolio.ts`, value = the exact Simple Icons title), or to `custom` if
 Simple Icons doesn't carry the mark — as with Java and AWS, which were removed
 for trademark reasons, and concepts like RAG that aren't products.
 
-## Replacing the resume — two steps
+## Updating the resume
 
-The `/resume` page shows an **image** of the PDF rather than embedding it,
-because iframe/embed PDF rendering is unreliable on iOS Safari. So when the
-resume changes:
+`/resume` is a **real HTML page**, not a PDF — there's no file to swap and
+nothing to regenerate. It renders from the same `src/content/portfolio.ts`
+data as the home page, so editing `experiences`, `schools`, or `skillGroups`
+updates both at once.
 
-```bash
-# 1. Replace the PDF
-cp ~/path/to/new-resume.pdf public/shruthi-srinivasa-prasad-resume.pdf
-
-# 2. Regenerate the preview image (macOS only — uses qlmanage)
-npm run resume
-```
-
-Skipping step 2 leaves the old resume visible on the page while the download
-button serves the new one. The script assumes a **single-page** PDF; if the
-resume grows to two pages it needs to render and stack each page.
-
-Also update the plain-text version further down `src/app/resume/page.tsx` —
-that block is what screen readers and search engines actually read.
+That also means the resume is indexable by search engines, readable on a phone,
+and accessible to screen readers — none of which is true of a PDF in an
+`<iframe>` (which iOS Safari renders unreliably anyway).
 
 ## Environment variables
 

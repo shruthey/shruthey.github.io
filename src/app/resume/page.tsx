@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import {
   contactInfo,
   experiences,
@@ -7,6 +6,8 @@ import {
   schools,
   skillGroups,
 } from "@/content/portfolio";
+import { Reveal } from "@/components/Reveal";
+import { SkillIcon } from "@/components/SkillIcon";
 
 export const metadata: Metadata = {
   title: "Resume",
@@ -19,6 +20,34 @@ export const metadata: Metadata = {
   },
 };
 
+/** A dated entry on the vertical timeline. */
+function TimelineItem({
+  title,
+  subtitle,
+  date,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  date: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <li className="relative border-l-2 border-ink pb-10 pl-8 last:pb-0">
+      <span
+        aria-hidden="true"
+        className="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full border-2 border-ink bg-accent"
+      />
+      <h3 className="font-display text-xl leading-tight">{title}</h3>
+      <p className="mt-2 inline-block rounded-md bg-ink px-2.5 py-1 font-mono text-xs text-paper">
+        {date}
+      </p>
+      <p className="mt-2 italic text-muted">{subtitle}</p>
+      {children}
+    </li>
+  );
+}
+
 export default function ResumePage() {
   return (
     <>
@@ -27,114 +56,104 @@ export default function ResumePage() {
           <h1 className="font-display text-5xl tracking-tight sm:text-6xl">
             Resume<span className="text-accent">.</span>
           </h1>
-          <p className="mt-4 text-lg">Feel free to download a copy.</p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href={greeting.resumeHref}
-              download
-              className="rounded-lg border-2 border-ink bg-ink px-6 py-3 font-display text-paper transition-transform hover:-translate-y-0.5"
-            >
-              Download PDF
-            </a>
-            <a
-              href={greeting.resumeHref}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-lg border-2 border-ink bg-surface px-6 py-3 font-display transition-transform hover:-translate-y-0.5"
-            >
-              Open in new tab ↗
-            </a>
-          </div>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed">
+            {greeting.subTitle}
+          </p>
         </div>
       </header>
 
-      <div className="mx-auto max-w-4xl px-5 py-14 sm:px-8">
-        {/*
-          An image of the PDF rather than an <embed>: iframe/embed PDF rendering
-          is unreliable on iOS Safari. The structured text below carries the
-          same information for screen readers and search engines.
-        */}
-        <Image
-          src="/resume-preview.webp"
-          alt={`Resume of ${greeting.name}. The same information is listed in text below.`}
-          width={1313}
-          height={1700}
-          priority
-          className="w-full rounded-xl border-2 border-ink bg-white shadow-[6px_6px_0_0_var(--color-ink)]"
-        />
+      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8">
+        <Reveal>
+          <section>
+            <h2 className="font-display text-3xl tracking-tight">Experience</h2>
+            <ol className="mt-8">
+              {experiences.map((job) => (
+                <TimelineItem
+                  key={job.company}
+                  title={job.role}
+                  subtitle={job.company}
+                  date={job.date}
+                >
+                  <ul className="mt-4 space-y-2.5">
+                    {job.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-3 leading-relaxed">
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                        />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-sm text-muted">
+                    <span className="font-semibold">Technologies:</span>{" "}
+                    {job.stack.join(", ")}
+                  </p>
+                </TimelineItem>
+              ))}
+            </ol>
+          </section>
+        </Reveal>
 
-        <section className="mt-16 border-t-2 border-ink pt-12">
-          <h2 className="font-display text-3xl tracking-tight">Summary</h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted">
-            {greeting.subTitle}
-          </p>
+        <Reveal>
+          <section className="mt-16">
+            <h2 className="font-display text-3xl tracking-tight">Education</h2>
+            <ol className="mt-8">
+              {schools.map((school) => (
+                <TimelineItem
+                  key={school.schoolName}
+                  title={school.subHeader}
+                  subtitle={school.schoolName}
+                  date={school.duration}
+                >
+                  <p className="mt-3 leading-relaxed">{school.desc}</p>
+                </TimelineItem>
+              ))}
+            </ol>
+          </section>
+        </Reveal>
 
-          <h2 className="mt-12 font-display text-3xl tracking-tight">
-            Experience
-          </h2>
-          <ul className="mt-6 space-y-8">
-            {experiences.map((job) => (
-              <li key={job.company}>
-                <h3 className="font-display text-xl">
-                  {job.role}, {job.company}
-                </h3>
-                <p className="text-sm text-muted">{job.date}</p>
-                <ul className="mt-3 space-y-2">
-                  {job.bullets.map((bullet) => (
-                    <li key={bullet} className="flex gap-3 leading-relaxed">
-                      <span
-                        aria-hidden="true"
-                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                      />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-sm text-muted">
-                  <span className="font-semibold">Technologies:</span>{" "}
-                  {job.stack.join(", ")}
-                </p>
-              </li>
-            ))}
-          </ul>
+        <Reveal>
+          <section className="mt-16">
+            <h2 className="font-display text-3xl tracking-tight">
+              Technical skills
+            </h2>
+            <div className="mt-8 space-y-7">
+              {skillGroups.map((group) => (
+                <div key={group.label}>
+                  <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
+                    {group.label}
+                  </h3>
+                  <ul className="mt-3 flex flex-wrap gap-2.5">
+                    {group.skills.map((skill) => (
+                      <li
+                        key={skill.name}
+                        className="flex items-center gap-2 rounded-full border-2 border-ink bg-surface px-4 py-2 text-sm font-semibold"
+                      >
+                        <SkillIcon icon={skill.icon} className="h-4 w-4" />
+                        {skill.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        </Reveal>
 
-          <h2 className="mt-12 font-display text-3xl tracking-tight">
-            Education
-          </h2>
-          <ul className="mt-6 space-y-6">
-            {schools.map((school) => (
-              <li key={school.schoolName}>
-                <h3 className="font-display text-xl">{school.schoolName}</h3>
-                <p className="font-semibold">{school.subHeader}</p>
-                <p className="text-sm text-muted">{school.duration}</p>
-                <p className="mt-2 leading-relaxed">{school.desc}</p>
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="mt-12 font-display text-3xl tracking-tight">Skills</h2>
-          <dl className="mt-6 space-y-3">
-            {skillGroups.map((group) => (
-              <div key={group.label}>
-                <dt className="font-semibold">{group.label}</dt>
-                <dd className="text-muted">
-                  {group.skills.map((s) => s.name).join(", ")}
-                </dd>
-              </div>
-            ))}
-          </dl>
-
-          <h2 className="mt-12 font-display text-3xl tracking-tight">Contact</h2>
-          <p className="mt-4">
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="underline decoration-accent decoration-2 underline-offset-4"
-            >
-              {contactInfo.email}
-            </a>
-          </p>
-        </section>
+        <Reveal>
+          <section className="mt-16 rounded-xl border-2 border-ink bg-surface p-6 sm:p-8">
+            <h2 className="font-display text-xl tracking-tight">Get in touch</h2>
+            <p className="mt-3">
+              <a
+                href={`mailto:${contactInfo.email}`}
+                className="text-lg underline decoration-accent decoration-2 underline-offset-4"
+              >
+                {contactInfo.email}
+              </a>
+            </p>
+          </section>
+        </Reveal>
       </div>
     </>
   );
