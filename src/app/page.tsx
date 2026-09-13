@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  site,
   contactInfo,
   experiences,
   greeting,
@@ -14,6 +13,7 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { SkillIcon } from "@/components/SkillIcon";
 import { ContactForm } from "@/components/ContactForm";
+import { RotatingRole } from "@/components/RotatingRole";
 
 export default function Home() {
   return (
@@ -25,14 +25,14 @@ export default function Home() {
       >
         <div className="mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em]">
-            {site.role} · 5+ years
+            5+ years
           </p>
           <h1 className="font-display text-5xl leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
             {greeting.title}
             <span className="text-accent">.</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl">
-            {greeting.subTitle}
+          <p className="mt-6 font-display text-2xl leading-tight sm:text-4xl">
+            I am <RotatingRole />
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -43,10 +43,10 @@ export default function Home() {
               Get in touch
             </Link>
             <Link
-              href="/resume"
+              href="/#work"
               className="rounded-lg border-2 border-ink bg-surface px-6 py-3 font-display transition-transform hover:-translate-y-0.5"
             >
-              View resume
+              See my work
             </Link>
           </div>
         </div>
