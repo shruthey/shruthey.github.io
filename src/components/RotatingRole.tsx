@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const ROLES = [
-  "a Software Engineer",
-  "a Backend Engineer",
-  "a Frontend Engineer",
-  "a Forward Deployed AI Engineer",
+  "Software Engineer",
+  "Backend Engineer",
+  "Frontend Engineer",
+  "Fullstack Engineer",
 ];
 
 const TYPE_MS = 38;

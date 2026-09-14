@@ -14,6 +14,7 @@ import { Reveal } from "@/components/Reveal";
 import { SkillIcon } from "@/components/SkillIcon";
 import { ContactForm } from "@/components/ContactForm";
 import { RotatingRole } from "@/components/RotatingRole";
+import { ProjectCard } from "@/components/ProjectCard";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
       {/* Hero */}
       <section
         id="top"
-        className="scroll-mt-16 border-b-2 border-ink bg-lime lg:min-h-[88vh] lg:flex lg:items-center"
+        className="scroll-mt-[57px] lg:scroll-mt-0 border-b-2 border-ink bg-lime lg:min-h-[88vh] lg:flex lg:items-center"
       >
         <div className="mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em]">
@@ -32,7 +33,7 @@ export default function Home() {
             <span className="text-accent">.</span>
           </h1>
           <p className="mt-6 font-display text-2xl leading-tight sm:text-4xl">
-            I am <RotatingRole />
+            I am a <RotatingRole />
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -53,7 +54,7 @@ export default function Home() {
       </section>
 
       {/* What I do */}
-      <section id="about" className="scroll-mt-16 border-b-2 border-ink">
+      <section id="about" className="scroll-mt-[57px] lg:scroll-mt-0 border-b-2 border-ink">
         <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
@@ -80,20 +81,48 @@ export default function Home() {
             ))}
           </ul>
 
-          <div className="mt-14 space-y-8">
+        </div>
+      </section>
+
+      {/* Skills */}
+      <section
+        id="skills"
+        className="scroll-mt-[57px] lg:scroll-mt-0 border-b-2 border-ink bg-shell text-shell-ink"
+      >
+        <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
+          <Reveal>
+            <p className="font-mono text-sm uppercase tracking-[0.2em] text-shell-ink/60">
+              Toolkit
+            </p>
+            <h2 className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
+              Skills
+              <span className="text-accent">.</span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {skillGroups.map((group, i) => (
-              <Reveal key={group.label} delay={i * 60}>
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
+              <Reveal
+                key={group.label}
+                delay={i * 70}
+                className="h-full rounded-xl border-2 border-ink bg-surface p-6 text-ink shadow-[5px_5px_0_0_var(--color-lime)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-lime)]"
+              >
+                <h3 className="text-center font-display text-lg italic tracking-tight">
                   {group.label}
                 </h3>
-                <ul className="mt-3 flex flex-wrap gap-2.5">
+                <ul className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-6">
                   {group.skills.map((skill) => (
                     <li
                       key={skill.name}
-                      className="flex items-center gap-2 rounded-full border-2 border-ink bg-surface px-4 py-2 text-sm font-semibold"
+                      className="group/skill flex w-16 flex-col items-center gap-2"
                     >
-                      <SkillIcon icon={skill.icon} className="h-4 w-4" />
-                      {skill.name}
+                      <SkillIcon
+                        icon={skill.icon}
+                        className="h-9 w-9 transition-transform duration-200 group-hover/skill:-translate-y-0.5 group-hover/skill:scale-110"
+                      />
+                      <span className="text-center text-xs leading-tight">
+                        {skill.name}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -104,7 +133,10 @@ export default function Home() {
       </section>
 
       {/* Experience */}
-      <section id="work" className="scroll-mt-16 border-b-2 border-ink bg-violet">
+      <section
+        id="work"
+        className="scroll-mt-[57px] lg:scroll-mt-0 border-b-2 border-ink bg-violet"
+      >
         <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
@@ -140,7 +172,10 @@ export default function Home() {
                   <ul className="mt-5 space-y-2.5">
                     {job.bullets.map((bullet) => (
                       <li key={bullet} className="flex gap-3 leading-relaxed">
-                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                        />
                         {bullet}
                       </li>
                     ))}
@@ -164,7 +199,7 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="scroll-mt-16 border-b-2 border-ink">
+      <section id="projects" className="scroll-mt-[57px] lg:scroll-mt-0 border-b-2 border-ink">
         <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <Reveal>
             <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
@@ -178,34 +213,8 @@ export default function Home() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {projects.map((project, i) => (
-              <Reveal key={project.slug} delay={i * 100}>
-                <article className="group flex h-full flex-col rounded-xl border-2 border-ink bg-surface p-7 transition-transform hover:-translate-y-1">
-                  <h3 className="font-display text-2xl">{project.name}</h3>
-                  <p className="mt-2 text-lg">{project.tagline}</p>
-
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {project.stack.slice(0, 5).map((tech) => (
-                      <li
-                        key={tech}
-                        className="rounded-full bg-ink px-3 py-1 text-xs font-semibold text-paper"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                    {project.stack.length > 5 && (
-                      <li className="rounded-full border-2 border-ink px-3 py-1 text-xs font-semibold">
-                        +{project.stack.length - 5}
-                      </li>
-                    )}
-                  </ul>
-
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="mt-auto pt-6 font-display underline decoration-accent decoration-4 underline-offset-4 group-hover:text-accent-text"
-                  >
-                    Read the case study →
-                  </Link>
-                </article>
+              <Reveal key={project.slug} delay={i * 100} className="h-full">
+                <ProjectCard project={project} index={i} />
               </Reveal>
             ))}
           </div>
@@ -252,7 +261,7 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="scroll-mt-16">
+      <section id="contact" className="scroll-mt-[57px] lg:scroll-mt-0">
         <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-2">
             <Reveal>

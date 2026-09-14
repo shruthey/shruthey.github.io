@@ -91,8 +91,11 @@ export const skillGroups: SkillGroup[] = [
       { name: "Docker", icon: "docker" },
       { name: "Terraform", icon: "terraform" },
       { name: "Git", icon: "git" },
-      { name: "CI/CD", icon: "githubactions" },
+      { name: "Jenkins", icon: "jenkins" },
+      { name: "Octopus", icon: "octopusdeploy" },
       { name: "Datadog", icon: "datadog" },
+      { name: "Postman", icon: "postman" },
+      { name: "Jira", icon: "jira" },
     ],
   },
   {

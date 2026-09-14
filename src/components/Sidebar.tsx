@@ -5,11 +5,24 @@ import { useEffect, useState } from "react";
 import { site, socialLinks } from "@/content/portfolio";
 
 const NAV = [
-  { label: "Home", href: "/#top", icon: "home" },
-  { label: "About", href: "/#about", icon: "user" },
-  { label: "Experience", href: "/#work", icon: "briefcase" },
-  { label: "Projects", href: "/#projects", icon: "grid" },
-  { label: "Contact", href: "/#contact", icon: "mail" },
+  { label: "Home", href: "/#top", icon: "home", id: "top", num: "01" },
+  { label: "About", href: "/#about", icon: "user", id: "about", num: "02" },
+  { label: "Skills", href: "/#skills", icon: "spark", id: "skills", num: "03" },
+  {
+    label: "Experience",
+    href: "/#work",
+    icon: "briefcase",
+    id: "work",
+    num: "04",
+  },
+  {
+    label: "Projects",
+    href: "/#projects",
+    icon: "grid",
+    id: "projects",
+    num: "05",
+  },
+  { label: "Contact", href: "/#contact", icon: "mail", id: "contact", num: "06" },
 ];
 
 /** Minimal line icons, 24x24, stroked. */
@@ -19,6 +32,7 @@ const ICONS: Record<string, string> = {
   briefcase:
     "M3 8.5h18v11H3zM8.5 8.5V6a1.5 1.5 0 0 1 1.5-1.5h4A1.5 1.5 0 0 1 15.5 6v2.5",
   grid: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+  spark: "M12 3.5 13.9 9l5.6 1.9-5.6 2L12 18.5l-1.9-5.6-5.6-2L10.1 9zM18.5 4v3M20 5.5h-3",
   file: "M13 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8zM13 3v5h5",
   mail: "M3 6.5h18v11H3zM3 7l9 6 9-6",
 };
@@ -68,8 +82,12 @@ function NavIcon({ name }: { name: string }) {
   );
 }
 
+/** Section ids the nav tracks, in document order. */
+const SECTIONS = NAV.map((item) => item.id);
+
 export function Sidebar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("top");
 
   // Close the mobile drawer on Escape.
   useEffect(() => {
@@ -79,7 +97,29 @@ export function Sidebar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const initials = "SP";
+  // Light up the nav item for whichever section is currently in view. Purely
+  // an enhancement — without JS the nav still renders and navigates fine.
+  useEffect(() => {
+    const nodes = SECTIONS.map((id) => document.getElementById(id)).filter(
+      (n): n is HTMLElement => n !== null,
+    );
+    if (!nodes.length || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry nearest the top of the viewport that is intersecting,
+        // so passing through a short section doesn't leave the wrong item lit.
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+
+    nodes.forEach((n) => observer.observe(n));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -107,17 +147,22 @@ export function Sidebar() {
           open ? "block" : "hidden"
         } fixed inset-x-0 top-[57px] z-40 border-b-2 border-ink bg-shell px-6 py-6 text-shell-ink lg:bottom-0 lg:left-0 lg:right-auto lg:top-0 lg:block lg:w-72 lg:overflow-y-auto lg:border-b-0 lg:border-r-2 lg:px-7 lg:py-9`}
       >
-        <div className="hidden flex-col items-center text-center lg:flex">
-          <span
-            aria-hidden="true"
-            className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-accent bg-shell-ink/10 font-display text-3xl"
-          >
-            {initials}
-          </span>
-          <p className="mt-4 font-display text-xl leading-tight">{site.name}</p>
+        {/*
+          The hero already says "Hi, I'm Shruthi" a few hundred pixels away, so
+          the rail identifies rather than introduces: name once, small, with the
+          role under it.
+        */}
+        <div className="hidden flex-col text-left lg:flex">
+          <p className="font-display text-lg leading-tight">
+            {site.name}
+            <span className="text-accent">.</span>
+          </p>
+          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-shell-ink/55">
+            {site.role}
+          </p>
         </div>
 
-        <ul className="mt-0 flex gap-2.5 lg:mt-6 lg:justify-center">
+        <ul className="mt-0 flex gap-2.5 lg:mt-5">
           {socialLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -125,7 +170,7 @@ export function Sidebar() {
                 target={link.href.startsWith("mailto:") ? undefined : "_blank"}
                 rel="noreferrer"
                 title={link.label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-shell-ink/25 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-shell-ink/25 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 hover:text-accent"
               >
                 <SocialIcon name={link.label} />
                 <span className="sr-only">{link.label}</span>
@@ -136,18 +181,53 @@ export function Sidebar() {
 
         <nav aria-label="Main" className="mt-7">
           <ul className="space-y-1">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium text-shell-ink/75 transition-colors hover:bg-shell-ink/10 hover:text-accent"
-                >
-                  <NavIcon name={item.icon} />
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {NAV.map((item) => {
+              const isActive = active === item.id;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`group relative flex items-center gap-3 overflow-hidden rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors duration-200 ${
+                      isActive
+                        ? "bg-shell-ink/10 text-shell-ink"
+                        : "text-shell-ink/70 hover:bg-shell-ink/[0.07] hover:text-shell-ink"
+                    }`}
+                  >
+                    {/* Accent rail: grows in for the section you're reading. */}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r bg-accent transition-transform duration-300 ${
+                        isActive
+                          ? "scale-y-100"
+                          : "scale-y-0 group-hover:scale-y-75"
+                      }`}
+                    />
+                    <span
+                      className={`transition-all duration-200 ${
+                        isActive
+                          ? "text-accent"
+                          : "group-hover:translate-x-0.5 group-hover:text-accent"
+                      }`}
+                    >
+                      <NavIcon name={item.icon} />
+                    </span>
+                    {item.label}
+                    <span
+                      aria-hidden="true"
+                      className={`ml-auto font-mono text-[10px] tabular-nums transition-opacity duration-200 ${
+                        isActive
+                          ? "text-accent opacity-100"
+                          : "opacity-0 group-hover:opacity-40"
+                      }`}
+                    >
+                      {item.num}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </aside>

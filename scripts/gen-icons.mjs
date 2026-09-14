@@ -21,7 +21,8 @@ const want = {
   node: "Node.js", postgresql: "PostgreSQL", mongodb: "MongoDB", redis: "Redis",
   graphql: "GraphQL", docker: "Docker", terraform: "Terraform", git: "Git",
   githubactions: "GitHub Actions", datadog: "Datadog", mlflow: "MLflow",
-  langgraph: "LangGraph", java: "OpenJDK",
+  langgraph: "LangGraph", java: "OpenJDK", jenkins: "Jenkins",
+  octopusdeploy: "Octopus Deploy", postman: "Postman", jira: "Jira",
 };
 
 const icons = {};
